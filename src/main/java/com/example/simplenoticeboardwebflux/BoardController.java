@@ -23,5 +23,8 @@ public class BoardController {
         return boardService.registerBoard(noticeBoard).map(NoticeBoard::getId);
     }
 
-
+    @PutMapping
+    public Mono<Long> modifyBoard(@RequestBody NoticeBoard noticeBoard) {
+        return boardService.modifyBoard(noticeBoard);
+    }
 }
