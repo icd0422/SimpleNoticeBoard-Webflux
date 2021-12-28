@@ -1,21 +1,27 @@
 package com.example.simplenoticeboardwebflux.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@AllArgsConstructor
+import java.time.LocalDateTime;
+
+@Setter
 @Getter
 @Table("tb_notice_board")
 public class NoticeBoard {
 
     @Id
-    private final Long id;
+    private Long id;
 
-    private final String title;
+    private String title;
 
-    private final String contents;
+    private String contents;
 
-    private final String author;
+    private String author;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime updatedAt = LocalDateTime.now();
 }
