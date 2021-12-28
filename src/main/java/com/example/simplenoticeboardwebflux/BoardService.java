@@ -36,4 +36,8 @@ public class BoardService {
                         }
                 ).map(NoticeBoard::getId);
     }
+
+    public Mono<Long> deleteBoard(long boardId) {
+        return reactiveBoardRepository.removeById(boardId);
+    }
 }

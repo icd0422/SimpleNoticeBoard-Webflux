@@ -27,4 +27,9 @@ public class BoardController {
     public Mono<Long> modifyBoard(@RequestBody NoticeBoard noticeBoard) {
         return boardService.modifyBoard(noticeBoard);
     }
+
+    @DeleteMapping("/{boardId}")
+    public Mono<Long> deleteBoard(@PathVariable("boardId") long boardId) {
+        return boardService.deleteBoard(boardId);
+    }
 }
