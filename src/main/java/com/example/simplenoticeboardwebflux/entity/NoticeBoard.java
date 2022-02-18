@@ -19,7 +19,7 @@ public class NoticeBoard {
 
     private String contents;
 
-    private String author;
+    private Long uid;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 

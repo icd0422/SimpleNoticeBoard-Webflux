@@ -33,7 +33,7 @@ public class BoardService {
                 })).flatMap(it -> {
                             it.setTitle(noticeBoard.getTitle());
                             it.setContents(noticeBoard.getContents());
-                            it.setAuthor(noticeBoard.getAuthor());
+                            it.setUid(noticeBoard.getUid());
                             it.setUpdatedAt(LocalDateTime.now());
 
                             return reactiveBoardRepository.save(it);
