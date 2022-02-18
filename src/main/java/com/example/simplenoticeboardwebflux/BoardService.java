@@ -18,6 +18,10 @@ public class BoardService {
         return reactiveBoardRepository.findAll();
     }
 
+    public Mono<NoticeBoard> getBoard(Long boardId) {
+        return reactiveBoardRepository.findById(boardId);
+    }
+
     public Mono<NoticeBoard> registerBoard(NoticeBoard noticeBoard) {
         return reactiveBoardRepository.save(noticeBoard);
     }

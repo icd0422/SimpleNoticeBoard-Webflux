@@ -18,6 +18,11 @@ public class BoardController {
         return boardService.getBoards();
     }
 
+    @GetMapping("/{boardId}")
+    public Mono<NoticeBoard> getBoard(@PathVariable Long boardId) {
+        return boardService.getBoard(boardId);
+    }
+
     @PostMapping
     public Mono<Long> registerBoard(@RequestBody NoticeBoard noticeBoard) {
         return boardService.registerBoard(noticeBoard).map(NoticeBoard::getId);
