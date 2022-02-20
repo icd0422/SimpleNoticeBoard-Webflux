@@ -1,5 +1,6 @@
 package com.example.simplenoticeboardwebflux;
 
+import com.example.simplenoticeboardwebflux.dto.NoticeBoardDetailDTO;
 import com.example.simplenoticeboardwebflux.entity.NoticeBoard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class BoardController {
     }
 
     @GetMapping("/{boardId}")
-    public Mono<NoticeBoard> getBoard(@PathVariable Long boardId) {
+    public Mono<NoticeBoardDetailDTO> getBoard(@PathVariable Long boardId) {
         return boardService.getBoard(boardId);
     }
 

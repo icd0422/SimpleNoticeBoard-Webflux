@@ -1,8 +1,11 @@
 package com.example.simplenoticeboardwebflux;
 
+import com.example.simplenoticeboardwebflux.dto.NoticeBoardDetailDTO;
+import com.example.simplenoticeboardwebflux.dto.User;
 import com.example.simplenoticeboardwebflux.entity.NoticeBoard;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,13 +16,16 @@ import java.time.LocalDateTime;
 public class BoardService {
 
     private final ReactiveBoardRepository reactiveBoardRepository;
+    private final WebClient webClient;
 
     public Flux<NoticeBoard> getBoards() {
         return reactiveBoardRepository.findAll();
     }
 
-    public Mono<NoticeBoard> getBoard(Long boardId) {
-        return reactiveBoardRepository.findById(boardId);
+    public Mono<NoticeBoardDetailDTO> getBoard(Long boardId) {
+        return reactiveBoardRepository.findById(boardId).zipWhen(noticeBoard ->
+                webClient.get().uri("/users/" + noticeBoard.getUid()).retrieve().bodyToMono(User.class)
+        ).map(tuple -> new NoticeBoardDetailDTO(tuple.getT1(), tuple.getT2()));
     }
 
     public Mono<NoticeBoard> registerBoard(NoticeBoard noticeBoard) {
