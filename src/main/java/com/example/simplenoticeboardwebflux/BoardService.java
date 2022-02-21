@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class BoardService {
 
     private final ReactiveBoardRepository reactiveBoardRepository;
+    private final ReactiveCommentRepository reactiveCommentRepository;
     private final WebClient webClient;
 
     public Flux<NoticeBoard> getBoards() {
@@ -24,8 +25,9 @@ public class BoardService {
 
     public Mono<NoticeBoardDetailDTO> getBoard(Long boardId) {
         return reactiveBoardRepository.findById(boardId).zipWhen(noticeBoard ->
-                webClient.get().uri("/users/" + noticeBoard.getUid()).retrieve().bodyToMono(User.class)
-        ).map(tuple -> new NoticeBoardDetailDTO(tuple.getT1(), tuple.getT2()));
+                Mono.zip(webClient.get().uri("/users/" + noticeBoard.getUid()).retrieve().bodyToMono(User.class),
+                        reactiveCommentRepository.findAllByBoardId(boardId).collectList()
+                )).map(tuple -> new NoticeBoardDetailDTO(tuple.getT1(), tuple.getT2().getT1(), tuple.getT2().getT2()));
     }
 
     public Mono<NoticeBoard> registerBoard(NoticeBoard noticeBoard) {
