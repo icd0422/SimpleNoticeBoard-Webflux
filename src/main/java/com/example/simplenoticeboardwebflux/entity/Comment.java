@@ -16,7 +16,6 @@ public class Comment {
     private Long boardId;
     private Long uid;
     private String content;
-    private Character gender;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 }

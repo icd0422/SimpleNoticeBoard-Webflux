@@ -21,7 +21,7 @@ public class BoardController {
 
     @GetMapping("/{boardId}")
     public Mono<NoticeBoardDetailDTO> getBoard(@PathVariable Long boardId) {
-        return boardService.getBoard(boardId);
+        return boardService.getBoard2(boardId);
     }
 
     @PostMapping
